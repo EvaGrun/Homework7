@@ -31,9 +31,10 @@ namespace Homework7
         /// Метод для чтения приватного поля Дата создания
         /// </summary>
         /// <returns>Дата создания</returns>
-        public DateTime CreateDate()
+        public DateTime CreateDate
         {
-            return this.createDate;
+            get { return createDate; }
+            set { createDate = value; }
         }
 
         /// <summary>
@@ -53,7 +54,16 @@ namespace Homework7
         /// <summary>
         /// Возраст
         /// </summary>
-        private readonly int age;
+        private int age;
+
+        /// <summary>
+        /// Метод для чтения и изменения имени
+        /// </summary>
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
 
         /// <summary>
         /// Рост
@@ -99,7 +109,7 @@ namespace Homework7
 
 
         /// <summary>
-        /// Конструктор для создания работника
+        /// Конструктор для создания работника в консоли
         /// </summary>
         /// <param name="name">Имя</param>
         /// <param name="age">Возраст</param>
@@ -114,6 +124,27 @@ namespace Homework7
             this.name = name;
             this.age = now.Year - birthDay.Year;
             if (birthDay > now.AddYears(-age)) age--;
+            this.height = height;
+            this.birthDay = birthDay;
+            this.birthPlace = birthPlace;
+        }
+
+        /// <summary>
+        /// метод для загрухзки работника из файла
+        /// </summary>
+        /// <param name="id">номер</param>
+        /// <param name="createDate">дата создания</param>
+        /// <param name="name">ФИО</param>
+        /// <param name="age">возраст</param>
+        /// <param name="height">рост</param>
+        /// <param name="birthDay">день рождения</param>
+        /// <param name="birthPlace">место рождения</param>
+        public Worker(int id, DateTime createDate, string name, int age, int height, DateTime birthDay, string birthPlace)
+        {
+            this.id = id;
+            this.createDate = createDate;
+            this.name = name;
+            this.age = age;            
             this.height = height;
             this.birthDay = birthDay;
             this.birthPlace = birthPlace;

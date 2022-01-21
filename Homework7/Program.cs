@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Threading;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Homework7
 
@@ -19,6 +20,35 @@ namespace Homework7
             return userChoice;
         }
 
+        /// <summary>
+        /// Метод для создания коллекции работников из файла
+        /// </summary>
+        /// <param name="path">адрес файла</param>
+        /// <param name="tempBD">коллекция , которую надо заполнить</param>
+        static void ReadFile(string path, List<Worker> tempBD)
+        {
+            if (File.Exists(path))
+            {
+                string[] workers = File.ReadAllLines(path);
+                
+                foreach (var w in workers)
+                {
+
+                    string[] workerTemp = w.Split('#', 7);
+                    int ID = Int32.Parse(workerTemp[0]);
+                    DateTime createDate = DateTime.Parse(workerTemp[1]);
+                    string name = workerTemp[2];
+                    int age = Int32.Parse(workerTemp[3]);
+                    int height = Int32.Parse(workerTemp[4]);
+                    DateTime birthDay = DateTime.Parse(workerTemp[5]);
+                    string birthPlace = workerTemp[6];
+                    Worker temp = new Worker(ID, createDate, name, age, height, birthDay, birthPlace); 
+                    tempBD.Add(temp);
+                }
+            }
+            else Console.WriteLine("Файл отсутствует");
+        }
+
 
         static void Main(string[] args)
         {
@@ -28,33 +58,12 @@ namespace Homework7
                 string userChoice = "да";
                 string path = @"\workers.txt";
 
+                List<Worker> tempBD = new List<Worker>();
+                ReadFile(path, tempBD);
 
-                Worker first = new Worker("Ева", 176, new DateTime(1986, 11, 1, 0, 00, 0), "Томск");
-                Thread.Sleep(1000);
-                Worker second = new Worker("Макс", 188, new DateTime(1987, 3, 20, 0, 00, 0), "Омск");
-                Thread.Sleep(1000);
-                Worker tri = new Worker("Алена", 130, new DateTime(1986, 11, 1, 0, 00, 0), "Новосибирск");
-                Thread.Sleep(1000);
-                Worker chet = new Worker();
-                Thread.Sleep(1000);
-                Worker five = new Worker("Кирилл", 176, new DateTime(1980, 11, 1, 0, 00, 0), "Красноярск");
-                Thread.Sleep(1000);
-                Worker six = new Worker("Марина", 188, new DateTime(1920, 11, 1, 0, 00, 0), "Северск");
-                Thread.Sleep(1000);
-                Worker seven = new Worker("Прокл", 176, new DateTime(1999, 11, 1, 0, 00, 0), "Кемерово");
-                Thread.Sleep(1000);
-                Worker vosem = new Worker("Алекс", 188, new DateTime(2000, 11, 1, 0, 00, 0), "Юрга");
-
-                Console.WriteLine("Создаем базу с первым участником");
-                Repository db = new Repository(first);
-
-                db.Add(second);
-                db.Add(tri);
-                db.Add(chet);
-                db.Add(five);
-                db.Add(six);
-                db.Add(seven);
-                db.Add(vosem);
+                Repository db = new Repository(tempBD);
+                //Worker first = new Worker();
+                //Repository db = new Repository(first);
 
 
 
@@ -162,19 +171,14 @@ namespace Homework7
                             Console.WriteLine("Вы ввели неверную команду. Попробуйте еще раз");
                             userChoice = Repeat();
                         }
-
                     }
-
-
 
                     else
                     {
                         Console.WriteLine("Вы ввели некорректную команду. Попробуйте еще раз");
                         userChoice = Repeat();
                     }
-
                 }    
-
             }
 
 

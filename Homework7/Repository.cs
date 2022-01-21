@@ -16,22 +16,30 @@ namespace Homework7
         int index;
 
         /// <summary>
-        /// конуструктор для добавления работников по одному в консоле
+        /// конуструктор для загрузки сотрудников из массива
         /// </summary>
         /// <param name="Path">путь к файлу</param>
+        /// 
+        public Repository(List<Worker> db)
+        {
+            this.db = db;
+            int elementCount = db.Count();
+            Console.WriteLine(elementCount);
+            this.index = db[elementCount - 1].ID+1;
+            Console.WriteLine(this.index);
+        }
+
+        /// <summary>
+        /// конуструктор для добавления работников по одному в консоле
+        /// </summary>
+        /// <param name="ConcretWorker"></param>
         public Repository(Worker ConcretWorker)
         {
             this.index = 1;
             this.db = new List<Worker>();
             db.Add(ConcretWorker);
-
         }
 
-        public Repository(string Path)
-        {
-            this.index = 1;
-            this.db = new List<Worker>();
-        }
 
         /// <summary>
         /// метод для добавления работника в массив с работниками
@@ -49,7 +57,7 @@ namespace Homework7
         /// </summary>
         public void Print ()
         {
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < db.Count(); i++)
             {
                 Console.WriteLine(this.db[i].Print());
             }
@@ -60,7 +68,7 @@ namespace Homework7
         /// </summary>
         public void Sort()
         {
-            db.Sort((w1, w2) => DateTime.Compare(w1.CreateDate(), w2.CreateDate()));
+            db.Sort((w1, w2) => DateTime.Compare(w1.CreateDate, w2.CreateDate));
         }
 
         /// <summary>
