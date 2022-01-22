@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using System.IO;
 
 namespace Homework7
 {
@@ -24,9 +24,11 @@ namespace Homework7
         {
             this.db = db;
             int elementCount = db.Count();
-            Console.WriteLine(elementCount);
-            this.index = db[elementCount - 1].ID+1;
-            Console.WriteLine(this.index);
+            if (elementCount<1)
+            {
+                this.index = 0;
+            }
+            else this.index = db[elementCount - 1].ID+1;
         }
 
         /// <summary>
@@ -63,9 +65,10 @@ namespace Homework7
             }
         }
 
+
         /// <summary>
-        /// Метод для осртировки по дате создания в обратном порядке, от первых к последним
-        /// </summary>
+    /// Метод для осртировки по дате создания в обратном порядке, от первых к последним
+    /// </summary>
         public void Sort()
         {
             db.Sort((w1, w2) => DateTime.Compare(w1.CreateDate, w2.CreateDate));
@@ -91,6 +94,12 @@ namespace Homework7
             this.index--;
         }
 
+        /// <summary>
+        /// Метод для изменения данных сотрудников
+        /// </summary>
+        /// <param name="selectId">айди выбранного сотрудника</param>
+        /// <param name="answer">переменная указывающая, что именно надо сделать с выбранным сотрудником</param>
+        /// <param name="newInfo">новые данные, которыми надо заменить старые</param>
         public void changeInfo (int selectId, string answer, string newInfo)
         {
             var workerToChange = this.db.Where(x => x.ID == selectId).Select(x => x).First();
@@ -114,6 +123,40 @@ namespace Homework7
                 db[i].BirthPlace = newInfo;
             }
         }
+
+
+        //public void PrintSelect(DateTime start, DateTime end)
+        //{
+        //    Sort();
+        //    int firstI = 0;
+        //    int secondI = 0;
+
+        //    for (int i = 0; i < db.Count; i++)
+        //    {
+        //        if (db[1].CreateDate <= start)
+        //        {
+        //            firstI = i;
+        //        }
+
+        //    }
+
+        //    for (int i = 0; i<db.Count; i++)
+        //    {
+        //        if (db[1].CreateDate <= end)
+        //        {
+        //            secondI = i;
+        //        }
+        //    }
+
+
+        //    {
+        //        for (int i = secondI + 1; i < firstI- 1; i++)
+        //        {
+        //            Console.WriteLine(this.db[i].Print());
+        //        }
+        //    }
+        //}
+
 
     }
 }

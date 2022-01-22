@@ -162,11 +162,11 @@ namespace Homework7
         {
             this.id = 0;
             this.createDate = DateTime.Now;
-            this.name = "Jon";
-            this.age = 18;
-            this.height = 180;
+            this.name = "Имя";
+            this.age = 0;
+            this.height = 0;
             this.birthDay = new DateTime(2000, 1, 1, 0, 00, 0);
-            this.birthPlace = "BestPlace";
+            this.birthPlace = "Место рождения";
         }
 
         /// <summary>
