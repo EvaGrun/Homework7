@@ -124,38 +124,24 @@ namespace Homework7
             }
         }
 
+        /// <summary>
+        /// Метод лля вывода записей в выбранном диапазоне дат
+        /// </summary>
+        /// <param name="start">дата начала периода</param>
+        /// <param name="end">дата конца периода</param>
+        public void PrintSelect(DateTime start, DateTime end)
+        {
 
-        //public void PrintSelect(DateTime start, DateTime end)
-        //{
-        //    Sort();
-        //    int firstI = 0;
-        //    int secondI = 0;
+            for (int i = 0; i < db.Count(); i++)
+            {
+                if (start <= this.db[i].CreateDate & this.db[i].CreateDate <= end)
+                {
+                    Console.WriteLine(this.db[i].Print());
+                }
 
-        //    for (int i = 0; i < db.Count; i++)
-        //    {
-        //        if (db[1].CreateDate <= start)
-        //        {
-        //            firstI = i;
-        //        }
-
-        //    }
-
-        //    for (int i = 0; i<db.Count; i++)
-        //    {
-        //        if (db[1].CreateDate <= end)
-        //        {
-        //            secondI = i;
-        //        }
-        //    }
-
-
-        //    {
-        //        for (int i = secondI + 1; i < firstI- 1; i++)
-        //        {
-        //            Console.WriteLine(this.db[i].Print());
-        //        }
-        //    }
-        //}
+            }
+           
+        }
 
 
     }

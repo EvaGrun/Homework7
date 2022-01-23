@@ -126,7 +126,7 @@ namespace Homework7
                         Console.WriteLine("Введите начиная с которой показать записи. Формат даты м.дд.гг");
                         string endStr = Console.ReadLine();
                         DateTime end = DateTime.ParseExact(endStr, "M.dd.yy", null);
-                        //db.PrintSelect(start, end);
+                        db.PrintSelect(start, end);
 
 
                         userChoice = Repeat();
